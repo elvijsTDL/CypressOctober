@@ -20,10 +20,10 @@ export class BasePage {
         cy.get(selector).should("be.visible")
     }
 
-    static loginStandardUserWithoutUI() {
+    static loginStandardUserWithoutUI(page) {
         //cy.loginStandartUser()
         cy.setCookie("session-username","standard_user")
-        cy.visit("/inventory.html" , { failOnStatusCode:false })
+        cy.visit( page , { failOnStatusCode:false })
     }
 
     static clickFirst(selector) {
