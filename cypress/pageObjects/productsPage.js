@@ -11,6 +11,16 @@ const PRODUCT_DESCRIPTIONS = ".inventory_item_desc";
 const PRODUCT_PRICES = ".inventory_item_price";
 const ALL_BUTTONS = PRODUCT_CONTAINER + " button";
 const CART_ITEMS = ".cart_item";
+const SELECT_CONTAINER = "[data-test=product_sort_container]"
+const CHECKOUT_BUTTON = "[data-test=checkout]"
+const FIRST_NAME_FIELD = "[data-test=firstName]"
+const LAST_NAME_FIELD = "[data-test=lastName]"
+const POSTAL_CODE_FIELD = "[data-test=postalCode]"
+const CONTINUE_BUTTON = "[data-test=continue]"
+const FINISH_BUTTON = "[data-test=finish]"
+const THANK_YOU_HEADER = ".complete-header"
+const THANK_YOU_IMAGE = "img.pony_express"
+const BACK_TO_PRODUCTS_BUTTON = "[data-test=back-to-products]"
 
 export class ProductsPage extends BasePage {
   static checkIfContainerVisible() {
@@ -69,5 +79,60 @@ export class ProductsPage extends BasePage {
   static verifyEmptyCart() {
     this.doesNotExist(CART_ITEMS);
     this.doesNotExist(CART_BADGE);
+  }
+
+    static selectSortingOption(option) {
+      cy.get(SELECT_CONTAINER).select(option)
+    }
+
+  static verifyLowToHighPrices() {
+    let actualArray = [];
+    cy.get(PRODUCT_PRICES).each(el => {
+      actualArray.push(el.text().replace("$",""))
+    })
+    cy.wrap(actualArray).then(actual =>{
+      let expectedArray = [...actual].sort((a,b) => a - b)
+      expect(actual).to.deep.eq(expectedArray)
+    })
+  }
+
+  static verifyHighToLowPrices() {
+    let actualArray = [];
+    cy.get(PRODUCT_PRICES).each(el => {
+      actualArray.push(el.text().replace("$",""))
+    })
+    cy.wrap(actualArray).then(actual =>{
+      let expectedArray = [...actual].sort((a,b) => b - a)
+      expect(actual).to.deep.eq(expectedArray)
+    })
+  }
+
+  static clickOnCheckoutButton() {
+    this.click(CHECKOUT_BUTTON)
+  }
+
+  static inputShippingDetails(user) {
+    cy.fixture("users").then(users => {
+      let chosenUser = users[user]
+      this.type(FIRST_NAME_FIELD,chosenUser.firstName)
+      this.type(LAST_NAME_FIELD,chosenUser.lastName)
+      if(chosenUser.postCode){
+        this.type(POSTAL_CODE_FIELD,chosenUser.postCode)
+      }
+    })
+  }
+
+  static clickOnContinueButton() {
+    this.click(CONTINUE_BUTTON)
+  }
+
+  static clickOnFinishButton() {
+    this.click(FINISH_BUTTON)
+  }
+
+  static verifyThankYouScreen() {
+    this.isVisible(THANK_YOU_IMAGE)
+    this.hasText(THANK_YOU_HEADER,"THANK YOU FOR YOUR ORDER")
+    this.isVisible(BACK_TO_PRODUCTS_BUTTON)
   }
 }

@@ -15,7 +15,8 @@ describe("Login test cases", () => {
 
   beforeEach(() => {
     //Ids should be unique in the web page, best bet for a good CSS selector in pages
-    //Where you don't have access to the source code and can't add attributes yourselfcy.visit("/")
+    //Where you don't have access to the source code and can't add attributes yourself
+    cy.visit("/")
   });
 
   afterEach(() => {
