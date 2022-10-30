@@ -3,3 +3,4 @@ node_modules
 #Add more stuff you don't want to see in git
 cypress/videos
 cypress/screenshots
+cypress/results

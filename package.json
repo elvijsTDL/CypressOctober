@@ -9,6 +9,7 @@
   "scripts": {
     "cypress": "cypress open",
     "cypress:run": "cypress run --record --key 5da885b2-ebea-47bf-baf8-61ebb1628883",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "generate-report": "mochawesome-merge cypress/results/*.json -o cypress/results/combined.json && marge cypress/results/combined.json -f report -o cypress/results && mv -v cypress/screenshots cypress/results/assets"
   }
 }
