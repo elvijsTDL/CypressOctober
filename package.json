@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "cypress": "^10.11.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.2.1",
+    "marge": "^1.0.1"
   },
   "scripts": {
     "cypress": "cypress open",

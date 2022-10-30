@@ -6,6 +6,12 @@ module.exports = defineConfig({
     chromeWebSecurity: false,
     baseUrl: "https://www.saucedemo.com",
     watchForFileChanges: false,
+    reporter: "mochawesome",
+    reporterOptions: {
+      reportDir: "cypress/results",
+      html: false,
+      overwrite: false,
+    },
     setupNodeEvents(on, config) {},
   },
 });

@@ -16,7 +16,7 @@ describe("Login test cases", () => {
   beforeEach(() => {
     //Ids should be unique in the web page, best bet for a good CSS selector in pages
     //Where you don't have access to the source code and can't add attributes yourself
-    cy.visit("/")
+    cy.visit("/");
   });
 
   afterEach(() => {
@@ -62,7 +62,7 @@ describe("Login test cases", () => {
   });
 
   it("Logging in without using the UI and just using the cookies", () => {
-    BasePage.loginStandardUserWithoutUI();
+    BasePage.loginStandardUserWithoutUI("/inventory.html");
     ProductsPage.checkIfContainerVisible();
   });
 });
